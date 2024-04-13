@@ -8,3 +8,5 @@
 - 라이브러리 및 도구 설치
 - 디렉토리 구조 설정
 - 채팅 컴포넌트 구현
+    - npm install socket.io-client
+    - io(server) 소켓 서버 연결
