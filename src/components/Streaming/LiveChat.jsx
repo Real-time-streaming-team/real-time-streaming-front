@@ -73,19 +73,15 @@ const LiveChat = ({ roomId, setCommunityActive }) => {
     )
   }
 
-  const ToCommunityTap = () => {
-    setCommunityActive(true);
-  }
-
 
   return (
     <div className='flex flex-col h-screen border-l-[.1px] border-[#494949] bg-[#0D0A18] text-white font-thin'>
       <div className='flex-1 overflow-auto text-[14px]'>
 
-        {/* Room name */}
+        {/* Header */}
         <div className='flex justify-between items-center px-3 border-b-[.1px] border-[#494949] py-4'>
-          <h3>🔴 LIVE Chat</h3>
-          <div onClick={ToCommunityTap}><img src='/icon-community.png' /></div>
+          <h3 className='font-bold'>🔴 LIVE Chat</h3>
+          <div onClick={() => setCommunityActive(true)}><img src='/icon-community.png' /></div>
         </div>
 
         {/* Chat window */}
