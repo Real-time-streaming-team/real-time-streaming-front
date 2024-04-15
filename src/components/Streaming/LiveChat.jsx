@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import socket from '../../api/socket'
 
-const LiveChat = ({ roomId }) => {
+const LiveChat = ({ roomId, setCommunityActive }) => {
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
@@ -73,6 +73,10 @@ const LiveChat = ({ roomId }) => {
     )
   }
 
+  const ToCommunityTap = () => {
+    setCommunityActive(true);
+  }
+
 
   return (
     <div className='flex flex-col h-screen border-l-[.1px] border-[#494949] bg-[#0D0A18] text-white font-thin'>
@@ -81,7 +85,7 @@ const LiveChat = ({ roomId }) => {
         {/* Room name */}
         <div className='flex justify-between items-center px-3 border-b-[.1px] border-[#494949] py-4'>
           <h3>🔴 LIVE Chat</h3>
-          <div><img src='/icon-community.png' /></div>
+          <div onClick={ToCommunityTap}><img src='/icon-community.png' /></div>
         </div>
 
         {/* Chat window */}
