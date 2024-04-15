@@ -2,6 +2,7 @@ import React from 'react'
 import StreamViewer from '../../components/Streaming/StreamViewer'
 import LiveChat from '../../components/Streaming/LiveChat'
 import { useParams } from 'react-router-dom'
+import StreamerProfile from '../../components/Streaming/StreamerProfile'
 
 const StreamingPage = () => {
 
@@ -15,7 +16,7 @@ const StreamingPage = () => {
         <StreamViewer />
 
         {/* detail */}
-        <div className='bg-gray-200 h-1/5 min-h-[100px]'>detail</div>
+        <StreamerProfile/>
       </div>
 
       <div className='w-1/4 min-w-[300px]'>

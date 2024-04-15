@@ -42,27 +42,27 @@ const LiveChat = ({ roomId }) => {
     setMessage('');
   };
 
-  // message 데이터
-  // {
-  //     "chat": "메세지",
-  //     "user": {
-  //         "id": "661a787cb18dd29126f4c1bf",
-  //         "name": "유저1"
-  //     },
-  //     "_id": "661a7ea521233762d87290a6",
-  //     "createdAt": "2024-04-13T12:46:29.978Z",
-  //     "updatedAt": "2024-04-13T12:46:29.978Z",
-  //     "__v": 0
-  // }
+  const formatTime = (dateString) => {
+    const date = new Date(dateString);
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+  
+    // 시간과 분을 항상 두 자리로 표시
+    hours = hours < 10 ? '0' + hours : hours;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+  
+    return `${hours}:${minutes}`;
+  };
+
 
   return (
-    <div className='flex flex-col h-screen bg-[#0D0A18] text-white font-thin'>
-      <div className='flex-1 overflow-auto'>
+    <div className='flex flex-col h-screen border-l-[.1px] border-[#494949] bg-[#0D0A18] text-white font-thin'>
+      <div className='flex-1 overflow-auto text-[14px]'>
 
         {/* Room name */}
-        <div className='flex justify-between px-3 border-b-[.1px] border-[#ada1d866] py-2'>
+        <div className='flex justify-between items-center px-3 border-b-[.1px] border-[#494949] py-4'>
           <h3>🔴 LIVE Chat</h3>
-          <div>{roomId}</div>
+          <div><img src='/icon-community.png'/></div>
         </div>
 
         {/* Chat window */}
@@ -71,10 +71,11 @@ const LiveChat = ({ roomId }) => {
           {/* Join message */}
           {join && <div className='opacity-80 text-sm font-thin rounded-2xl px-4 py-[.4rem] mb-8 text-center bg-[#33385766] w-5/6 m-auto'>{user?.name}님이 입장하셨습니다.</div>}
 
-          {/* Bubbles */}
+          {/* chat message */}
           {messageList.map((message, idx) => (
-            <div key={idx} className='flex w-full break-words mb-3 font-thin'>
-              <div className='min-w-[70px] text-center text-[#4ABEFF] mr-3'>{message.user?.name}</div>
+            <div key={idx} className='flex w-full break-words mb-2 font-thin'>
+              <div>{formatTime(message.createdAt)}</div>
+              <div className='min-w-[70px] text-center text-[#4ABEFF] mr-1'>{message.user?.name}:</div>
               <div className='w-2/3 m-auto'><div>{message.chat}</div></div>
             </div>
           ))}
@@ -82,16 +83,44 @@ const LiveChat = ({ roomId }) => {
         </div>
       </div>
 
-      {/* Input field */}
-      <div className='w-full h-[65px] border-t-[.1px] border-[#ada1d866] flex items-center justify-center px-4'>
-        <form onSubmit={sendMessage} className='w-full flex'>
-          <input
-            type='text'
-            value={message}
-            onChange={e => setMessage(e.target.value)}
-            className='px-4 py-[.3rem] w-full rounded-xl shadow-md flex-1 bg-transparent border-[#ada1d866] border-2' />
-          <button type='submit' className='rounded-lg bg-[#ada1d866] px-4 py-[.3rem] shadow-md ml-2'>전송</button>
+      {/* chat field */}
+      <div className='w-full h-[110px] border-t-[.1px] border-[#494949] flex flex-col items-center justify-center px-4'>
+
+        <form onSubmit={sendMessage} className='w-full'>
+          <div className='relative'>
+            
+            {/* message input */}
+            <input
+              type='text'
+              value={message}
+              onChange={e => setMessage(e.target.value)}
+              placeholder='Send Message'
+              className='px-4 py-[.5rem] w-full rounded-lg shadow-md bg-transparent border-[#494949] border-[.1px]' />
+            
+            {/* send button */}
+            <button type='submit' className=' font-extrabold underline text-[#4ABEFF] absolute top-1 right-0 rounded-lg px-4 py-[.3rem] shadow-md ml-2'>SEND</button>
+
+          </div>
         </form>
+
+        {/* support field */}
+        <div className='w-full flex justify-between items-center mt-3 font-bold'> 
+
+          {/* amount */}
+          <div className='flex'>
+            <div className='mr-1'>
+              <img src='/icon-spon.png'/>
+            </div>
+            <div>100,000</div>
+          </div>
+
+          {/* spon button */}
+          <div>
+            <button className=' bg-bt-gradient px-2 py-1 rounded-md text-sm '>SPON</button>
+          </div>
+          
+        </div>
+
       </div>
 
     </div>
