@@ -22,12 +22,6 @@ function App() {
           <Route path='/streaming/:roomId' element={<StreamingPage/>} />
         </Routes>
       </BrowserRouter>
-      
-      
-      
-      
-      
-      
     </>
   )
 }

@@ -13,10 +13,15 @@ function StreamerProfile() {
       </div>
 
       {/* follow button */}
-      <button className='flex bg-bt-gradient px-5 py-2 rounded-sm items-center text-base'>
+      {/* <button className='flex bg-bt-gradient px-5 py-2 rounded-sm items-center text-base'>
+        <div className='mr-1'>+</div>
+        <div className=''>Follow</div>
+      </button> */}
+      <button className='bt-follow-active flex px-5 py-2 items-center text-base'>
         <div className='mr-1'>+</div>
         <div className=''>Follow</div>
       </button>
+    
 
     </div>
   )

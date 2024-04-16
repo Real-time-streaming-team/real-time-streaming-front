@@ -80,7 +80,7 @@ const LiveChat = ({ streamId, setCommunityActive }) => {
     client.send(destination, {}, JSON.stringify({
       content: message
     }));
-
+    // token추가
     setMessage('');
   }
 
