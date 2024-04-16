@@ -1,5 +1,8 @@
-import { io } from "socket.io-client";
-// const socket = io();
-const socket = io("http://localhost:5001");
+// import { io } from "socket.io-client";
+// import StompJs from '@stomp/stompjs';
 
-export default socket;
+// // const socket = io();
+// // const socket = io("http://158.247.240.142:8080/stream/sendChat/{streamId}");
+// new StompJs.Client(socket)
+
+// export default socket;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import StreamViewer from '../../components/Streaming/StreamViewer'
-import LiveChat from '../../components/Streaming/LiveChat'
+// import LiveChat from '../../components/Streaming/LiveChat'
+import LiveChatCopy from '../../components/Streaming/LiveChatCopy'
 import { useParams } from 'react-router-dom'
 import StreamerProfile from '../../components/Streaming/StreamerProfile'
 import CommunityTab from '../../components/Streaming/CommunityTab'
@@ -17,15 +18,18 @@ const StreamingPage = () => {
         <StreamViewer />
 
         {/* detail */}
-        <StreamerProfile/>
+        <StreamerProfile />
       </div>
 
       <div className='w-1/4 min-w-[300px]'>
         {/* chat */}
-        {communityActive ? <CommunityTab setCommunityActive={setCommunityActive}/>
-          : <LiveChat roomId={roomId} setCommunityActive={setCommunityActive}/>}
-        
-        
+        {/* {communityActive ? <CommunityTab setCommunityActive={setCommunityActive}/>
+          : <LiveChat roomId={roomId} setCommunityActive={setCommunityActive}/>} */}
+
+        {communityActive ? <CommunityTab setCommunityActive={setCommunityActive} />
+          : <LiveChatCopy roomId={roomId} setCommunityActive={setCommunityActive} />}
+
+
 
       </div>
 
