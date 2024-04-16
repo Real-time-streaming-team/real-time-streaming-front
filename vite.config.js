@@ -9,4 +9,7 @@ export default defineConfig({
   define: {
     'global': 'window', // 이렇게 해서 빌드 시 'global'이 'window'로 대체됩니다.
   },
+  server: {
+    port: 3000 // 여기서 원하는 포트 번호로 변경합니다.
+  },
 })
