@@ -20,12 +20,12 @@ const LiveChat = ({ setCommunityActive }) => {
       // 연결이 성공했을 때 실행될 콜백
       onConnect: () => {
         console.log('sockJs 연결 성공!');
-  
+
         // 서버로부터 메시지를 받도록 구독합니다.
-        stompClient.subscribe(`/stream/1}`, (message) => {
+        stompClient.subscribe(`/stream/1`, (message) => {
           // 보낸 메시지를 messages 상태에 추가합니다.
           console.log(message);
-          setMessages(prev => [...prev, JSON.parse(message.body)]);
+          setMessages(prev => [...prev, JSON.parse(message.body)]); //{id:id, content:content}
         });
       },
       onStompError: (err) => {
@@ -79,21 +79,25 @@ const LiveChat = ({ setCommunityActive }) => {
 
   const sendMessage = async (e) => {
     try {
-      const destination = `/sendChat/1`;
+      const destination = '/sendChat/1';
       e.preventDefault();
-  
-      await client.publish(destination, {}, JSON.stringify({
-        userId: user,
-        content: message
-      }));
+
+      console.log(user)
+      await client.publish({
+        destination,
+        body: JSON.stringify({
+          userId: user,
+          content: message
+        })
+      });
       console.log('send 성공 message 내역: ', message);
       // token추가
       setMessage('');
-      
+
     } catch (err) {
       console.log('send 실패: ', err);
     }
-  } 
+  }
 
   // function sendMessage(messageContent) {
   //   // STOMP를 통해 서버에 메시지를 보낼 목적지 주소
@@ -139,8 +143,8 @@ const LiveChat = ({ setCommunityActive }) => {
             <div key={idx} className='flex w-full break-words mb-2 font-thin'>
               {/* <div>{formatTime(message.createdAt)}</div> */}
               <div className='flex'>
-                {/* <div className={`min-w-[70px] text-center ${messageColor()} mr-1 font-bold`}>{message.user?.name}:</div> */}
-                <div className='w-full m-auto'><div>{message}</div></div>
+                <div className={`min-w-[70px] text-center ${messageColor()} mr-1 font-bold`}>{message.userId}:</div>
+                <div className='w-full m-auto'><div>{message.content}</div></div>
               </div>
             </div>
           ))}
