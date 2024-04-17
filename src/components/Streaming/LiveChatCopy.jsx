@@ -15,26 +15,6 @@ const LiveChat = ({ streamId, setCommunityActive }) => {
   useEffect(() => {
     // SockJS와 Stomp를 사용하여 웹소켓 클라이언트를 생성합니다.
     const sockJs = new SockJS('http://158.247.240.142:8080/chat');
-    // const client = Stomp.over(sockJs)
-
-    // client.connect({}, () => {
-    //   // callback 함수 설정, 대부분 여기에 sub 함수 씀
-    //   console.log('connect 성공');
-
-    //   client.current.subscribe(
-    //     `/stream/${streamId}`,
-    //     (message) => {
-    //       console.log(message)
-    //       setMessages(prev => [...prev, JSON.parse(message.body)]);
-    //     },
-    //     {
-    //       // 여기에도 유효성 검증을 위한 header 넣어 줄 수 있음
-    //     }
-    //   );
-    //   console.log('subscribe 성공');
-
-    // })
-
     const stompClient = new Client({
       webSocketFactory: () => sockJs,
       // 연결이 성공했을 때 실행될 콜백
@@ -47,7 +27,6 @@ const LiveChat = ({ streamId, setCommunityActive }) => {
           console.log(message);
           setMessages(prev => [...prev, JSON.parse(message.body)]);
         });
-        setClient(stompClient);
       },
       onStompError: (err) => {
         console.log('Stomp error: ', err);
@@ -56,6 +35,7 @@ const LiveChat = ({ streamId, setCommunityActive }) => {
 
     // 클라이언트 활성화
     stompClient.activate();
+    setClient(stompClient);
     console.log('stomp client: ', stompClient)
 
     return () => {
@@ -102,7 +82,7 @@ const LiveChat = ({ streamId, setCommunityActive }) => {
       const destination = `/sendChat/${streamId}`;
       e.preventDefault();
   
-      await client.send(destination, {}, JSON.stringify({
+      await client.publish(destination, {}, JSON.stringify({
         content: message
       }));
       console.log('send 성공');
@@ -159,7 +139,7 @@ const LiveChat = ({ streamId, setCommunityActive }) => {
               {/* <div>{formatTime(message.createdAt)}</div> */}
               <div className='flex'>
                 {/* <div className={`min-w-[70px] text-center ${messageColor()} mr-1 font-bold`}>{message.user?.name}:</div> */}
-                <div className='w-full m-auto'><div>{message.content}</div></div>
+                <div className='w-full m-auto'><div>{message}</div></div>
               </div>
             </div>
           ))}
