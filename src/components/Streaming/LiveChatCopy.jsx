@@ -47,11 +47,15 @@ const LiveChat = ({ streamId, setCommunityActive }) => {
           console.log(message);
           setMessages(prev => [...prev, JSON.parse(message.body)]);
         });
+        setClient(stompClient);
       },
+      onStompError: (err) => {
+        console.log('Stomp error: ', err);
+      }
     });
 
+    // 클라이언트 활성화
     stompClient.activate();
-    setClient(stompClient);
     console.log('stomp client: ', stompClient)
 
     return () => {
