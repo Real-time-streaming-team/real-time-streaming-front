@@ -36,7 +36,7 @@ const LiveChat = ({ streamId, setCommunityActive }) => {
     // })
 
     const stompClient = new Client({
-      webSocketFactory: () => SockJS,
+      webSocketFactory: () => sockJs,
       // 연결이 성공했을 때 실행될 콜백
       onConnect: () => {
         console.log('sockJs 연결 성공!');
