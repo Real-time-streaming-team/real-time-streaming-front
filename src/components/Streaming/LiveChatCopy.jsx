@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Client } from '@stomp/stompjs';
+import { Client, Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
 const LiveChat = ({ streamId, setCommunityActive }) => {
@@ -11,15 +11,35 @@ const LiveChat = ({ streamId, setCommunityActive }) => {
   const [client, setClient] = useState(null);
   const [messages, setMessages] = useState([]);
 
-  
+
   useEffect(() => {
     // SockJS와 Stomp를 사용하여 웹소켓 클라이언트를 생성합니다.
     const sockJs = new SockJS('http://158.247.240.142:8080/chat');
+    // const client = Stomp.over(sockJs)
+
+    // client.connect({}, () => {
+    //   // callback 함수 설정, 대부분 여기에 sub 함수 씀
+    //   console.log('connect 성공');
+
+    //   client.current.subscribe(
+    //     `/stream/${streamId}`,
+    //     (message) => {
+    //       console.log(message)
+    //       setMessages(prev => [...prev, JSON.parse(message.body)]);
+    //     },
+    //     {
+    //       // 여기에도 유효성 검증을 위한 header 넣어 줄 수 있음
+    //     }
+    //   );
+    //   console.log('subscribe 성공');
+
+    // })
+
     const stompClient = new Client({
-      webSocketFactory: () => sockJs,
+      webSocketFactory: () => SockJS,
       // 연결이 성공했을 때 실행될 콜백
       onConnect: () => {
-        console.log('Connected');
+        console.log('sockJs 연결 성공!');
   
         // 서버로부터 메시지를 받도록 구독합니다.
         stompClient.subscribe(`/stream/${streamId}`, (message) => {
@@ -38,7 +58,7 @@ const LiveChat = ({ streamId, setCommunityActive }) => {
       // 컴포넌트가 언마운트 될 때 연결을 끊습니다.
       stompClient.deactivate();
     };
-  }, []);
+  }, [streamId]);
 
   const formatTime = (dateString) => {
     const date = new Date(dateString);
@@ -73,16 +93,22 @@ const LiveChat = ({ streamId, setCommunityActive }) => {
 
   // 메시지를 보내는 함수
 
-  const sendMessage = (e) => {
-    const destination = `/sendChat/${streamId}`;
-    e.preventDefault();
-
-    client.send(destination, {}, JSON.stringify({
-      content: message
-    }));
-    // token추가
-    setMessage('');
-  }
+  const sendMessage = async (e) => {
+    try {
+      const destination = `/sendChat/${streamId}`;
+      e.preventDefault();
+  
+      await client.send(destination, {}, JSON.stringify({
+        content: message
+      }));
+      console.log('send 성공');
+      // token추가
+      setMessage('');
+      
+    } catch (err) {
+      console.log('send 실패: ', err);
+    }
+  } 
 
   // function sendMessage(messageContent) {
   //   // STOMP를 통해 서버에 메시지를 보낼 목적지 주소
@@ -170,9 +196,8 @@ const LiveChat = ({ streamId, setCommunityActive }) => {
 
           {/* spon button */}
           <div>
-            <button className=' bg-bt-gradient px-2 py-1 rounded-md text-sm '>SPON</button>
+            <button className=' bg-bt-gradient px-2 py-1 rounded-md text-sm'>SPON</button>
           </div>
-
         </div>
 
       </div>
