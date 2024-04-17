@@ -19,7 +19,9 @@ function App() {
           <Route path='/searchlist' element={<SearchListPage/>} />
           <Route path='/signup' element={<SignUpPage/>} />
           {/* <Route path='/streaming' element={<StreamingPage/>} /> */}
-          <Route path='/streaming/:roomId' element={<StreamingPage/>} />
+          {/* <Route path='/streaming/:roomId' element={<StreamingPage/>} /> */}
+          <Route path='/streaming/1' element={<StreamingPage/>} />
+
         </Routes>
       </BrowserRouter>
     </>

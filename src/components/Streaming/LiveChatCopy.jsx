@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Client, Stomp } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 
-const LiveChat = ({ streamId, setCommunityActive }) => {
-  const [user, setUser] = useState(null);
+const LiveChat = ({ setCommunityActive }) => {
+  const [user, setUser] = useState('1');
   const [message, setMessage] = useState('');
-  const [messageList, setMessageList] = useState([]);
+  // const [messageList, setMessageList] = useState([]);
   const [join, setJoin] = useState(false);
 
   const [client, setClient] = useState(null);
@@ -22,7 +22,7 @@ const LiveChat = ({ streamId, setCommunityActive }) => {
         console.log('sockJs 연결 성공!');
   
         // 서버로부터 메시지를 받도록 구독합니다.
-        stompClient.subscribe(`/stream/${streamId}`, (message) => {
+        stompClient.subscribe(`/stream/1}`, (message) => {
           // 보낸 메시지를 messages 상태에 추가합니다.
           console.log(message);
           setMessages(prev => [...prev, JSON.parse(message.body)]);
@@ -42,7 +42,7 @@ const LiveChat = ({ streamId, setCommunityActive }) => {
       // 컴포넌트가 언마운트 될 때 연결을 끊습니다.
       stompClient.deactivate();
     };
-  }, [streamId]);
+  }, []);
 
   const formatTime = (dateString) => {
     const date = new Date(dateString);
@@ -79,13 +79,14 @@ const LiveChat = ({ streamId, setCommunityActive }) => {
 
   const sendMessage = async (e) => {
     try {
-      const destination = `/sendChat/${streamId}`;
+      const destination = `/sendChat/1`;
       e.preventDefault();
   
       await client.publish(destination, {}, JSON.stringify({
+        userId: user,
         content: message
       }));
-      console.log('send 성공');
+      console.log('send 성공 message 내역: ', message);
       // token추가
       setMessage('');
       

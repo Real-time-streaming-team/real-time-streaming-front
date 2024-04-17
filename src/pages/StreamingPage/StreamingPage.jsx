@@ -8,7 +8,7 @@ import CommunityTab from '../../components/Streaming/CommunityTab'
 
 const StreamingPage = () => {
   const [communityActive, setCommunityActive] = useState(false);
-  const { roomId } = useParams();
+  // const { roomId } = useParams();
 
   return (
     <div className='flex min-h-lvh'>
@@ -27,7 +27,7 @@ const StreamingPage = () => {
           : <LiveChat roomId={roomId} setCommunityActive={setCommunityActive}/>} */}
 
         {communityActive ? <CommunityTab setCommunityActive={setCommunityActive} />
-          : <LiveChatCopy roomId={roomId} setCommunityActive={setCommunityActive} />}
+          : <LiveChatCopy setCommunityActive={setCommunityActive} />}
 
 
 
