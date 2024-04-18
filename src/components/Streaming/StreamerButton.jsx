@@ -6,12 +6,18 @@ const Button = styled.button`
     border-radius: 0.125rem;
     align-items: center;
     display: flex;
+
     ${props => props.subscribed ? css`
         border: 1.5px solid transparent;
         border-image-source: linear-gradient(180deg, #4ABEFF 0%, #001AFF 100%);
         border-image-slice: 1;
     ` : css`
         background: linear-gradient(153.5deg, #4ABEFF -63.68%, #001AFF 75.59%);
+        transition: 1s;
+        &:hover {
+        background: linear-gradient(153.5deg, #2c94d0 -63.68%, #000f97 75.59%);
+        color: #bbbdca; /* 글자 색 변경 */
+    }
     `}
 `;
 

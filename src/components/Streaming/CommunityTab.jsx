@@ -1,7 +1,7 @@
 import React from 'react';
-import dummyData from './dummyData.json';
 
 const CommunityTab = ({ setCommunityActive }) => {
+    let users = ["Kai0808", "eoen", "talgo3"]
 
     return (
         <div className='flex flex-col h-screen border-l-[.1px] border-[#494949] bg-[#0D0A18] text-white font-thin'>
@@ -29,9 +29,10 @@ const CommunityTab = ({ setCommunityActive }) => {
                         <div className='font-bold text-lg'>VIEWER</div>
                     </div>
                     <div>
-                        {dummyData.user.map((item, idx) => {
+                        {/* 스트리머 방에 접속해있는 사람들 */}
+                        {users.map((item, idx) => {
                         return (
-                            <div key={idx} className='mb-1'>{item.name}</div>
+                            <div key={idx} className='mb-1'>{item}</div>
                         )
                     })}
                     </div>

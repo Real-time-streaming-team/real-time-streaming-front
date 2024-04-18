@@ -11,7 +11,7 @@ const StreamingPage = () => {
   // const { roomId } = useParams();
 
   return (
-    <div className='flex min-h-lvh'>
+    <div className='flex max-h-lvh'>
 
       <div className=' flex flex-col flex-1 min-w-[600px]'>
         {/* viewer */}

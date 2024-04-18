@@ -1,30 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import StreamerInfo from './StreamerInfo';
 import StreamerButton from './StreamerButton';
-
-let streamerDummy = {
-  "id": "1",
-  "name": "streamerKing52",
-  "title": "streamer detail content",
-  "point": "1000",
-};
-
-let userDummy = {
-  "id": "1",
-  "name": "Kai0808",
-  "follows": [
-    {
-      "id": "1",
-      "name": "streamerKing52",
-      "support": 20000,
-    },
-    {
-      "id": "2",
-      "name": "streamerDoi33",
-      "support": 400,
-    }
-  ],
-};
+import dummyData from './dummyData.json';
 
 function StreamerProfile() {
   const [subscribed, setSubscribed] = useState(false);
@@ -36,9 +13,9 @@ function StreamerProfile() {
     console.log('get');
 
     // 유저 정보를 받아온다. get
-    setUser(userDummy);
+    setUser(dummyData.user);
     // 스트리머 정보를 받아온다. get
-    setStreamer(streamerDummy);
+    setStreamer(dummyData.streamer);
 
     // 유저의 스트리밍 구독을 확인한다.
     // if(user.subscribed === streamer.id) setSubscribed(true)
