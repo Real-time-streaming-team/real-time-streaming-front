@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 const StreamViewer = () => {
   const videoRef = useRef(null);  // 비디오 요소를 위한 ref 생성
+  const [mute, setMute] = useState(false);
 
   useEffect(() => {
     const getMedia = async () => {
@@ -30,12 +31,40 @@ const StreamViewer = () => {
 
   }, []);
 
+  const pauseHandler = () => {
+    const videoTracks = videoRef.current.srcObject.getVideoTracks();
+    console.log(videoTracks);
+  };
+
+  const muteHandler = () => {
+    const audioTracks = videoRef.current.srcObject.getAudioTracks();
+    audioTracks.forEach(item => {
+      if(mute) item.enabled = false;
+      else item.enabled = true;
+    });
+    setMute(prev => !prev);
+  };
 
   return (
-    <div className='flex-1 bg-slate-500 overflow-hidden'>
-      <div className='bg-slate-300 h-full overflow-hidden'>
-        <video className='w-full' ref={videoRef} autoPlay />
+    <div className='flex-1 relative overflow-hidden'>
+      {/* video */}
+      <div className='h-full bg-black'>
+        <video className='w-full h-full m-auto' ref={videoRef} autoPlay />
       </div>
+
+      {/* controller */}
+      <div className='absolute bottom-0 left-0 bg-mute w-full opacity-0 hover:opacity-100 transition-all duration-500 ' >
+        <div className='flex justify-between'>
+          <div className='flex'>
+            <button onClick={pauseHandler}>멈춤</button>
+            <button onClick={muteHandler}>{mute ? 'unmute' : 'mute'}</button>
+          </div>
+          <div className='flex'>
+            <button>시간</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   )
 }
