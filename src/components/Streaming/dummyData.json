@@ -1,35 +1,35 @@
 {
-    "message": {
-        "chat": "메세지",
-        "user": {
-            "id": "661a787cb18dd29126f4c1bf",
-            "name": "유저1"
-        },
-        "_id": "661a7ea521233762d87290a6",
-        "createdAt": "2024-04-13T12:46:29.978Z",
-        "updatedAt": "2024-04-13T12:46:29.978Z",
-        "__v": 0
+  "message": {
+    "chat": "메세지",
+    "user": {
+      "id": "661a787cb18dd29126f4c1bf",
+      "name": "유저1"
     },
-    "streamer": {
+    "_id": "661a7ea521233762d87290a6",
+    "createdAt": "2024-04-13T12:46:29.978Z",
+    "updatedAt": "2024-04-13T12:46:29.978Z",
+    "__v": 0
+  },
+  "streamer": {
+    "id": "1",
+    "name": "streamerKing52",
+    "title": "streamer detail content",
+    "point": "1000"
+  },
+  "user": {
+    "id": "1",
+    "name": "Kai0808",
+    "follows": [
+      {
         "id": "1",
         "name": "streamerKing52",
-        "title": "streamer detail content",
-        "point": "1000"
-    },
-    "user": {
-        "id": "1",
-        "name": "Kai0808",
-        "follows": [
-            {
-                "id": "1",
-                "name": "streamerKing52",
-                "support": 20000
-            },
-            {
-                "id": "2",
-                "name": "streamerDoi33",
-                "support": 400
-            }
-        ]
-    }
+        "support": 20000
+      },
+      {
+        "id": "2",
+        "name": "streamerDoi33",
+        "support": 400
+      }
+    ]
+  }
 }
