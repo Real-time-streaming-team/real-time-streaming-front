@@ -1,81 +1,89 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
+  <head>
     <title>Spring WebSocket Chat</title>
     <!-- JavaScript 라이브러리를 로드합니다. -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-</head>
-<body>
-<!-- 채팅 애플리케이션 컨테이너 -->
-<div id="chat">
-    <!-- 메시지 입력 폼 -->
-    <form id="messageForm">
-        <input type="text" id="messageInput" placeholder="Type your message here" />
+  </head>
+  <body>
+    <!-- 채팅 애플리케이션 컨테이너 -->
+    <div id="chat">
+      <!-- 메시지 입력 폼 -->
+      <form id="messageForm">
+        <input
+          type="text"
+          id="messageInput"
+          placeholder="Type your message here"
+        />
         <button type="submit">Send</button>
-    </form>
-    <!-- 채팅 메시지가 표시되는 영역 -->
-    <ul id="messageArea"></ul>
-</div>
+      </form>
+      <!-- 채팅 메시지가 표시되는 영역 -->
+      <ul id="messageArea"></ul>
+    </div>
 
-<script type="text/javascript">
-    // STOMP 클라이언트 변수 초기화
-    var stompClient = null;
-    var currentUrl = window.location.href;
-    var streamId = currentUrl.substr(currentUrl.lastIndexOf('/') + 1);
+    <script type="text/javascript">
+      // STOMP 클라이언트 변수 초기화
+      var stompClient = null;
+      var currentUrl = window.location.href;
+      var streamId = currentUrl.substr(currentUrl.lastIndexOf('/') + 1);
 
-    // 서버에 WebSocket 연결하는 함수
-    function connect() {
+      // 서버에 WebSocket 연결하는 함수
+      function connect() {
         var socket = new SockJS('/chat');
         stompClient = Stomp.over(socket);
-        stompClient.connect({}, function(frame) {
-            subscribeUrl = "/stream/" + streamId
-            console.log('Connected: ' + frame);
-            // 서버에서 메시지를 수신할 때 호출될 함수를 등록합니다.
-            stompClient.subscribe(subscribeUrl, function(response) {
-                showMessage(JSON.parse(response.body).content);
-            });
+        stompClient.connect({}, function (frame) {
+          subscribeUrl = '/stream/' + streamId;
+          console.log('Connected: ' + frame);
+          // 서버에서 메시지를 수신할 때 호출될 함수를 등록합니다.
+          stompClient.subscribe(subscribeUrl, function (response) {
+            showMessage(JSON.parse(response.body).content);
+          });
         });
-    }
+      }
 
-    // WebSocket 연결을 해제하는 함수
-    function disconnect() {
+      // WebSocket 연결을 해제하는 함수
+      function disconnect() {
         if (stompClient !== null) {
-            stompClient.disconnect();
+          stompClient.disconnect();
         }
-        console.log("Disconnected");
-    }
+        console.log('Disconnected');
+      }
 
-    // 서버로 메시지를 전송하는 함수
-    function sendMessage() {
-        sendMessageUrl = "/sendMessage/" + streamId
+      // 서버로 메시지를 전송하는 함수
+      function sendMessage() {
+        sendMessageUrl = '/sendMessage/' + streamId;
         console.log(sendMessageUrl);
-        console.log("/sendMessage/1");
+        console.log('/sendMessage/1');
         var messageContent = $('#messageInput').val();
-        stompClient.send(sendMessageUrl, {}, JSON.stringify({'content': messageContent}));
-    }
+        stompClient.send(
+          sendMessageUrl,
+          {},
+          JSON.stringify({ content: messageContent }),
+        );
+      }
 
-    // 화면에 메시지를 표시하는 함수
-    function showMessage(message) {
-        $('#messageArea').append("<li>" + message + "</li>");
-    }
+      // 화면에 메시지를 표시하는 함수
+      function showMessage(message) {
+        $('#messageArea').append('<li>' + message + '</li>');
+      }
 
-    // 페이지가 로드되면 실행되는 함수
-    $(function() {
+      // 페이지가 로드되면 실행되는 함수
+      $(function () {
         // 폼 제출 이벤트를 가로채고 기본 동작을 방지합니다.
-        $("form").on('submit', function(e) {
-            e.preventDefault();
+        $('form').on('submit', function (e) {
+          e.preventDefault();
         });
         // WebSocket에 연결합니다.
         connect();
         // 메시지 폼이 제출되면 sendMessage 함수를 호출하여 메시지를 전송하고 입력 상자를 비웁니다.
-        $("#messageForm").submit(function() {
-            sendMessage();
-            $('#messageInput').val('');
-            return false;
+        $('#messageForm').submit(function () {
+          sendMessage();
+          $('#messageInput').val('');
+          return false;
         });
-    });
-</script>
-</body>
+      });
+    </script>
+  </body>
 </html>

@@ -1,19 +1,18 @@
-import React, { useState } from 'react'
-import StreamViewer from '../../components/Streaming/StreamViewer'
+import { useState } from 'react';
+import StreamViewer from '../../components/Streaming/StreamViewer';
 // import LiveChat from '../../components/Streaming/LiveChat'
-import LiveChatCopy from '../../components/Streaming/LiveChatCopy'
-import { useParams } from 'react-router-dom'
-import StreamerProfile from '../../components/Streaming/StreamerProfile'
-import CommunityTab from '../../components/Streaming/CommunityTab'
+import LiveChatCopy from '../../components/Streaming/LiveChatCopy';
+// import { useParams } from 'react-router-dom';
+import StreamerProfile from '../../components/Streaming/StreamerProfile';
+import CommunityTab from '../../components/Streaming/CommunityTab';
 
 const StreamingPage = () => {
   const [communityActive, setCommunityActive] = useState(false);
   // const { roomId } = useParams();
 
   return (
-    <div className='flex max-h-lvh'>
-
-      <div className=' flex flex-col flex-1 min-w-[600px]'>
+    <div className="flex max-h-lvh">
+      <div className=" flex flex-col flex-1 min-w-[600px]">
         {/* viewer */}
         <StreamViewer />
 
@@ -21,21 +20,19 @@ const StreamingPage = () => {
         <StreamerProfile />
       </div>
 
-      <div className='w-1/4 min-w-[300px]'>
+      <div className="w-1/4 min-w-[300px]">
         {/* chat */}
         {/* {communityActive ? <CommunityTab setCommunityActive={setCommunityActive}/>
           : <LiveChat roomId={roomId} setCommunityActive={setCommunityActive}/>} */}
 
-        {communityActive ? <CommunityTab setCommunityActive={setCommunityActive} />
-          : <LiveChatCopy setCommunityActive={setCommunityActive} />}
-
-
-
+        {communityActive ? (
+          <CommunityTab setCommunityActive={setCommunityActive} />
+        ) : (
+          <LiveChatCopy setCommunityActive={setCommunityActive} />
+        )}
       </div>
-
-
     </div>
-  )
-}
+  );
+};
 
-export default StreamingPage
+export default StreamingPage;
