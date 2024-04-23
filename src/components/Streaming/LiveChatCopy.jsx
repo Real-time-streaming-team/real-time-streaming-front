@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
 import { Client } from '@stomp/stompjs';
+import { useEffect, useState } from 'react';
 import SockJS from 'sockjs-client';
-import dummyData from './dummyData.json';
 import BanActive from '../modal/BanActive';
+import dummyData from './dummyData.json';
 
 const LiveChat = ({ setCommunityActive }) => {
   const [user, setUser] = useState({});
@@ -31,7 +31,7 @@ const LiveChat = ({ setCommunityActive }) => {
         stompClient.subscribe(`/stream/${streamer.id}`, message => {
           // 보낸 메시지를 messages 상태에 추가합니다.
           console.log(message);
-          setMessages(prev => [...prev, JSON.parse(message.body)]); //{id:id, content:content}
+          setMessages(prev => [...prev, JSON.parse(message.body)]); // {id:id, content:content}
         });
       },
       onStompError: err => {
@@ -77,16 +77,15 @@ const LiveChat = ({ setCommunityActive }) => {
     let minutes = date.getMinutes();
 
     // 시간과 분을 항상 두 자리로 표시
-    hours = hours < 10 ? '0' + hours : hours;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
+    hours = hours < 10 ? `0${hours}` : hours;
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
 
     return `${hours}:${minutes}`;
   };
 
   const messageColor = () => {
-    if (message.id === streamer.id)
-      return 'text-[#FF4AF8]'; // streamer
-    else if (message.id === user.id) return 'text-[#4ABEFF]'; // user
+    if (message.id === streamer.id) return 'text-[#FF4AF8]'; // streamer
+    if (message.id === user.id) return 'text-[#4ABEFF]'; // user
   };
 
   const chatWarning = () => {
@@ -98,7 +97,7 @@ const LiveChat = ({ setCommunityActive }) => {
     return (
       <div className="flex text-[#FF0000]">
         <div className="min-w-[70px] text-center font-bold">{user.name}:</div>
-        <div className="w-full m-auto">
+        <div className="m-auto w-full">
           <div>{warningMessage}</div>
         </div>
       </div>
@@ -106,10 +105,10 @@ const LiveChat = ({ setCommunityActive }) => {
   };
 
   return (
-    <div className="flex flex-col h-screen border-l-[.1px] border-[#494949] bg-[#0D0A18] text-white font-thin">
+    <div className="flex h-screen flex-col border-l-[.1px] border-[#494949] bg-[#0D0A18] font-thin text-white">
       <div className="flex-1 overflow-auto text-[14px]">
         {/* Header */}
-        <div className="flex justify-between items-center px-3 border-b-[.1px] border-[#494949] py-4">
+        <div className="flex items-center justify-between border-b-[.1px] border-[#494949] px-3 py-4">
           <h3 className="font-bold">🔴 LIVE Chat</h3>
           <div onClick={() => setCommunityActive(true)}>
             <img src="/icon-community.png" />
@@ -120,14 +119,14 @@ const LiveChat = ({ setCommunityActive }) => {
         <div className="w-full p-4">
           {/* Join message */}
           {join && (
-            <div className="opacity-80 text-sm font-thin rounded-2xl px-4 py-[.4rem] mb-8 text-center bg-[#33385766] w-5/6 m-auto">
+            <div className="m-auto mb-8 w-5/6 rounded-2xl bg-[#33385766] px-4 py-[.4rem] text-center text-sm font-thin opacity-80">
               {user?.name}님이 입장하셨습니다.
             </div>
           )}
 
           <div className="relative">
             {banActive && <BanActive setBanActive={setBanActive} />}
-            <div className="flex w-full mb-2 font-thin break-words">
+            <div className="mb-2 flex w-full break-words font-thin">
               <div>{formatTime()}</div>
               {false ? (
                 chatWarning()
@@ -139,7 +138,7 @@ const LiveChat = ({ setCommunityActive }) => {
                   >
                     {user.name}:
                   </div>
-                  <div className="w-full m-auto">
+                  <div className="m-auto w-full">
                     <div>
                       Hello world!Hello world!Hello world!Hello world!Hello
                       world!
@@ -154,7 +153,7 @@ const LiveChat = ({ setCommunityActive }) => {
             {/* <BanActive /> */}
             {/* chat message */}
             {messages.map((message, idx) => (
-              <div key={idx} className="flex w-full mb-2 font-thin break-words">
+              <div key={idx} className="mb-2 flex w-full break-words font-thin">
                 <div>{formatTime()}</div>
                 <div className="flex">
                   <div
@@ -162,7 +161,7 @@ const LiveChat = ({ setCommunityActive }) => {
                   >
                     {user.name}:
                   </div>
-                  <div className="w-full m-auto">
+                  <div className="m-auto w-full">
                     <div>{message.content}</div>
                   </div>
                 </div>
@@ -173,7 +172,7 @@ const LiveChat = ({ setCommunityActive }) => {
       </div>
 
       {/* chat field */}
-      <div className="w-full h-[110px] border-t-[.1px] border-[#494949] flex flex-col items-center justify-center px-4">
+      <div className="flex h-[110px] w-full flex-col items-center justify-center border-t-[.1px] border-[#494949] px-4">
         <form onSubmit={sendMessage} className="w-full">
           <div className="relative">
             {/* message input */}
@@ -182,13 +181,13 @@ const LiveChat = ({ setCommunityActive }) => {
               value={message}
               onChange={e => setMessage(e.target.value)}
               placeholder="Send Message"
-              className="px-4 py-[.5rem] w-full rounded-lg shadow-md bg-transparent border-[#494949] border-[.1px]"
+              className="w-full rounded-lg border-[.1px] border-[#494949] bg-transparent px-4 py-[.5rem] shadow-md"
             />
 
             {/* send button */}
             <button
               type="submit"
-              className=" font-extrabold underline text-[#4ABEFF] absolute top-1 right-0 rounded-lg px-4 py-[.3rem] shadow-md ml-2"
+              className=" absolute right-0 top-1 ml-2 rounded-lg px-4 py-[.3rem] font-extrabold text-[#4ABEFF] underline shadow-md"
             >
               SEND
             </button>
@@ -196,7 +195,7 @@ const LiveChat = ({ setCommunityActive }) => {
         </form>
 
         {/* support field */}
-        <div className="flex items-center justify-between w-full mt-3 font-bold">
+        <div className="mt-3 flex w-full items-center justify-between font-bold">
           {/* amount */}
           <div className="flex">
             <div className="mr-1">
@@ -207,7 +206,7 @@ const LiveChat = ({ setCommunityActive }) => {
 
           {/* spon button */}
           <div>
-            <button className="px-2 py-1 text-sm bg-blue-800 rounded-md ">
+            <button className="rounded-md bg-blue-800 px-2 py-1 text-sm ">
               SPON
             </button>
           </div>

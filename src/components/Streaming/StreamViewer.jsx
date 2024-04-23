@@ -51,11 +51,11 @@ const StreamViewer = () => {
     <div className="relative flex-1 overflow-hidden">
       {/* video */}
       <div className="h-full bg-black">
-        <video className="w-full h-full m-auto" ref={videoRef} autoPlay />
+        <video className="m-auto size-full" ref={videoRef} autoPlay />
       </div>
 
       {/* controller */}
-      <div className="absolute bottom-0 left-0 w-full transition-all duration-500 opacity-0 bg-mute hover:opacity-100 ">
+      <div className="bg-mute absolute bottom-0 left-0 w-full opacity-0 transition-all duration-500 hover:opacity-100 ">
         <div className="flex justify-between">
           <div className="flex">
             <button onClick={pauseHandler}>멈춤</button>

@@ -1,16 +1,17 @@
-const BanActive = ({ setBanActive }) => {
+function BanActive({ setBanActive }) {
   return (
-    <div className="bg-[#0E0B19] absolute top-0 left-0 w-full min-h-[80px] border-[.1px] border-[#494949] rounded-sm">
+    <div className="absolute left-0 top-0 min-h-[80px] w-full rounded-sm border-[.1px] border-[#494949] bg-[#0E0B19]">
       <div className="relative">
-        <div
+        <button
+          type="button"
           onClick={() => setBanActive(false)}
-          className="absolute top-0 text-lg text-gray-600 right-3"
+          className="absolute right-3 top-0 text-lg text-gray-600"
         >
           x
-        </div>
+        </button>
         <div className="flex items-center justify-between p-5">
           <div className="flex">
-            <div className="bg-blue-700 mr-3 w-[50px] h-[50px] rounded-full"></div>
+            <div className="mr-3 size-[50px] rounded-full bg-blue-700" />
             <div className="flex flex-col justify-center">
               <div className="text-lg font-bold ">username</div>
               <div className="text-xs ">dkdk</div>
@@ -21,6 +22,6 @@ const BanActive = ({ setBanActive }) => {
       </div>
     </div>
   );
-};
+}
 
 export default BanActive;

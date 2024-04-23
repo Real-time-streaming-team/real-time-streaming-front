@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import StreamerInfo from './StreamerInfo';
 import StreamerButton from './StreamerButton';
+import StreamerInfo from './StreamerInfo';
 import dummyData from './dummyData.json';
 
 function StreamerProfile() {
@@ -37,7 +37,7 @@ function StreamerProfile() {
   };
 
   return (
-    <div className="h-1/5 min-h-[100px] flex justify-between items-center px-10 border-t-[.1px] border-[#494949]">
+    <div className="flex h-1/5 min-h-[100px] items-center justify-between border-t-[.1px] border-[#494949] px-10">
       {/* profile wrap */}
       <StreamerInfo streamer={streamer} />
 
