@@ -1,5 +1,6 @@
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Layout from './components/Layout';
 import Homepage from './pages/HomePage/Homepage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import MyPage from './pages/MyPage/MyPage';
@@ -9,9 +10,9 @@ import StreamingPage from './pages/StreamingPage/StreamingPage';
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
           <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/mypage" element={<MyPage />} />
@@ -20,9 +21,9 @@ function App() {
           {/* <Route path='/streaming' element={<StreamingPage/>} /> */}
           {/* <Route path='/streaming/:roomId' element={<StreamingPage/>} /> */}
           <Route path="/streaming/1" element={<StreamingPage />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
