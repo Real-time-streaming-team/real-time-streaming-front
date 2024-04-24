@@ -24,5 +24,6 @@ module.exports = {
       { namedComponents: ['arrow-function', 'function-declaration'] },
     ],
     'react/react-in-jsx-scope': 'off', // 17버전 이후로는 React import 필요 x
+    'no-console': 'off',
   },
 };
