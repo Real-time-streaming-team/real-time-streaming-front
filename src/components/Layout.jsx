@@ -5,7 +5,7 @@ import Loading from './Loading';
 
 const LayoutContent = () => {
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-[#0E0B19] bg-gradient-to-br">
+    <div className="flex h-screen w-screen items-center justify-center">
       <div className="h-screen w-screen">
         <Link to="/">
           <header className="ml-5 mt-3 flex flex-row items-center justify-start">

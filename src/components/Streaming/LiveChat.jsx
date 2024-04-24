@@ -7,6 +7,13 @@ const LiveChat = ({ roomId, setCommunityActive }) => {
   const [messageList, setMessageList] = useState([]);
   const [join, setJoin] = useState(false);
 
+  const askUserName = () => {
+    const userName = prompt('채팅방에서 사용할 이름을 입력하세요.');
+    setJoin(true);
+    socket.emit('login', userName, res => {
+      if (res?.ok) setUser(res.data);
+    });
+  };
   useEffect(() => {
     askUserName();
 
@@ -23,15 +30,6 @@ const LiveChat = ({ roomId, setCommunityActive }) => {
       socket.off('message'); // 이벤트를 해제함. 리소스 정리
     };
   }, []);
-
-  const askUserName = () => {
-    const userName = prompt('채팅방에서 사용할 이름을 입력하세요.');
-    setJoin(true);
-    socket.emit('login', userName, res => {
-      if (res?.ok) setUser(res.data);
-    });
-  };
-
   const sendMessage = e => {
     e.preventDefault();
     // setMessageList(prev => [...prev, message]);
@@ -80,9 +78,9 @@ const LiveChat = ({ roomId, setCommunityActive }) => {
         {/* Header */}
         <div className="flex items-center justify-between border-b-[.1px] border-[#494949] px-3 py-4">
           <h3 className="font-bold">🔴 LIVE Chat</h3>
-          <div onClick={() => setCommunityActive(true)}>
-            <img src="/icon-community.png" />
-          </div>
+          <button type="button" onClick={() => setCommunityActive(true)}>
+            <img src="/icon-community.png" alt="iconCommunity" />
+          </button>
         </div>
 
         {/* Chat window */}
@@ -116,7 +114,10 @@ const LiveChat = ({ roomId, setCommunityActive }) => {
 
           {/* chat message */}
           {messageList.map((message, idx) => (
-            <div key={idx} className="mb-2 flex w-full break-words font-thin">
+            <div
+              key={message.createdAt}
+              className="mb-2 flex w-full break-words font-thin"
+            >
               <div>{formatTime(message.createdAt)}</div>
               <div className="flex">
                 <div
@@ -161,14 +162,17 @@ const LiveChat = ({ roomId, setCommunityActive }) => {
           {/* amount */}
           <div className="flex">
             <div className="mr-1">
-              <img src="/icon-spon.png" />
+              <img src="/icon-spon.png" alt="iconSpon" />
             </div>
             <div>100,000</div>
           </div>
 
           {/* spon button */}
           <div>
-            <button className=" bg-bt-gradient rounded-md px-2 py-1 text-sm ">
+            <button
+              type="button"
+              className="rounded-md bg-gradient-to-t px-2 py-1 text-sm "
+            >
               SPON
             </button>
           </div>

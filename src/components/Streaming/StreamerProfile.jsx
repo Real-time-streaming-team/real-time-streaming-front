@@ -9,8 +9,6 @@ function StreamerProfile() {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    console.log('get');
-
     // 유저 정보를 받아온다. get
     setUser(dummyData.user);
     // 스트리머 정보를 받아온다. get
@@ -23,7 +21,7 @@ function StreamerProfile() {
   useEffect(() => {
     if (user.length && streamer.length) {
       console.log(user.length, streamer);
-      user.follows.map(follow => {
+      user.follows.forEach(follow => {
         if (follow.name === streamer.name) setSubscribed(true);
       });
     }
