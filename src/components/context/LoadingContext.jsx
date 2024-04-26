@@ -24,7 +24,7 @@ function LoadingProvider({ children }) {
   return (
     <LoadingContext.Provider value={contextValue}>
       {isLoading && <Loading />}
-      {children}
+      <main className="mx-8">{children}</main>
     </LoadingContext.Provider>
   );
 }
