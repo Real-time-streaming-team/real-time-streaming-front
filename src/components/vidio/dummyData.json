@@ -1,0 +1,79 @@
+[
+  {
+    "src": "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbvI27G%2Fbtq150ydmzI%2FHCmURUAEnw5gtaIfyDNuf0%2Fimg.png",
+    "title": "title title title title title",
+    "people": 12345,
+    "live": false,
+    "streamId": 1,
+    "streamer": {
+      "userId": 0,
+      "nickname": "test1"
+    }
+  },
+  {
+    "src": "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FDQSmW%2Fbtq11yWYPFQ%2FjKYcSeSprOQsclcZAUbCcK%2Fimg.png",
+    "title": "title2 title2 title2 title2 title2",
+    "people": 77777,
+    "live": true,
+    "streamId": 2,
+    "streamer": {
+      "userId": 1,
+      "nickname": "test2"
+    }
+  },
+  {
+    "src": "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbNZo14%2Fbtq17bsvo5i%2FOSV3gGWnwAKqNB0EOSQkrK%2Fimg.png",
+    "title": "title3 title3 title3 title3 title3",
+    "people": 54321,
+    "live": false,
+    "streamId": 3,
+    "streamer": {
+      "userId": 2,
+      "nickname": "test3"
+    }
+  },
+  {
+    "src": "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbvI27G%2Fbtq150ydmzI%2FHCmURUAEnw5gtaIfyDNuf0%2Fimg.png",
+    "title": "title title title title title",
+    "people": 12345,
+    "live": false,
+    "streamId": 4,
+    "streamer": {
+      "userId": 3,
+      "nickname": "test4"
+    }
+  },
+  {
+    "src": "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FDQSmW%2Fbtq11yWYPFQ%2FjKYcSeSprOQsclcZAUbCcK%2Fimg.png",
+    "title": "title2 title2 title2 title2 title2 title2 title2 title2 title2 title2 title2 title2 title2 title2 title2",
+    "people": 77777,
+    "streamId": 5,
+    "live": true,
+    "streamer": {
+      "userId": 4,
+      "nickname": "test5"
+    }
+  },
+  {
+    "src": "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbvI27G%2Fbtq150ydmzI%2FHCmURUAEnw5gtaIfyDNuf0%2Fimg.png",
+    "title": "title title title title title",
+    "people": 12345,
+    "live": false,
+    "streamId": 6,
+    "streamer": {
+      "userId": 5,
+      "nickname": "test6"
+    }
+  },
+  {
+    "src": "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FDQSmW%2Fbtq11yWYPFQ%2FjKYcSeSprOQsclcZAUbCcK%2Fimg.png",
+    "title": "title2 title2 title2 title2 title2",
+    "people": 77777,
+    "live": true,
+    "streamId": 7,
+    "streamer": {
+      "userId": 6,
+      "nickname": "test7"
+    }
+  }
+]
