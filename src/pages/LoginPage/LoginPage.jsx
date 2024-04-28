@@ -1,6 +1,8 @@
-import { useEffect,useState,useRef } from "react";
-import { Button, Input } from "../../components/form/input";
+import { useEffect,useState } from "react";
+import { Button, Input } from "../../components/form/LoginComponent";
 import './LoginPage.css'
+import { Post } from "../../api/api";
+import { useNavigate } from "react-router-dom";
 const LoginPage = () => {
   return (
       <LoginForm></LoginForm>
@@ -50,6 +52,9 @@ const LoginForm = () => {
 }
 
 const SignInForm = () => {
+  
+
+
   return (
     <>
       <div className="flex flex-col gap-5 mt-9">
@@ -57,7 +62,7 @@ const SignInForm = () => {
           <div className="w-full p-px text-sm text-white h-11 hover:opacity-90 bg-gradient-to-r from-primary-color to-secondary-color">
             <button className="flex items-center w-full h-full px-5 bg-black">
               <img className="mr-24" src="/images/kakao.png"></img>
-              <label>Sign in with <span className="font-bold">Kakao</span></label>
+              <span>Sign in with <span className="font-bold">Kakao</span></span>
             </button>
           </div>
         </div>
@@ -65,11 +70,11 @@ const SignInForm = () => {
           <div className="w-full p-px text-sm text-white h-11 hover:opacity-90 bg-gradient-to-r from-primary-color to-secondary-color">
             <button className="flex items-center w-full h-full px-5 bg-black ">
               <img className="mr-24" src="/public/images/naver.png"></img>
-              <label>Sign in with <span className="font-bold">Naver</span></label>
+              <span>Sign in with <span className="font-bold">Naver</span></span>
             </button>
           </div>
         </div>
-      </div>
+      </div>  
       <form className="flex flex-col w-full gap-5 mt-5">
         <div className="w-full p-px h-11 bg-gradient-to-r from-primary-color to-secondary-color ">
           <input placeholder ="E-mail Address" className="w-full h-full p-3 bg-black placeholder:text-white focus:outline-none focus:border-primary-color"/>
@@ -94,26 +99,39 @@ const SignInForm = () => {
 }
 
 const SignUpForm = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     email : '',
     password : '',
-    password2 : '',
     nickname : '',
   })
+  
   const handleSignUpInputChange = (e) => {
     setUser({...user, [e.target.name] : e.target.value})
   }
-  const handleSignUp = (e) => {
-    e.preventDefault();
-    console.log(user)
+  const handleSignUp = async () => {
+    try{
+      await Post('http://158.247.240.142:80/user/signup', user);
+      console.log(user)
+      alert('회원가입에 성공하였습니다.')
+      //navigate('/')
+    }
+    catch(err){
+      console.log(err)
+      alert('회원가입에 실패했습니다.')
+    }
   }
+
+  
+
+
   return (
     <>
       <form className="flex flex-col w-full mt-9">
         <div className="flex flex-col gap-6">
           <Input name="email" onChange={handleSignUpInputChange} placeholder="E-mail Address" type="email" ></Input>
           <Input name="password" placeholder="Password" type="password" onChange={handleSignUpInputChange}></Input>
-          <Input name="password2" placeholder="Confirm Password" type="password" onChange={handleSignUpInputChange}></Input>
+          <Input name="password2" placeholder="Confirm Password" type="password"></Input>
           <Input name="nickname" placeholder="Nickname" onChange={handleSignUpInputChange}></Input>
         </div>
         <Button onClick={handleSignUp}>SIGN UP</Button>
