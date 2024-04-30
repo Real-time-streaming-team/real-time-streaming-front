@@ -22,8 +22,16 @@ export default ({ mode }) => {
           rewrite: path => path.replace(/^\/api/, ''),
           // SSL 인증서 검증 무시
           secure: false,
-          // WebSocket 프로토콜 사용
           ws: true,
+        },
+        '/hls': {
+          target: `${env.VITE_STREAM_ADDRESS}/hls`, // 원하는 서버 주소로 대체하세요
+          changeOrigin: true,
+        },
+        '/ws': {
+          target: env.VITE_CHAT_ADDRESS, // 원하는 서버 주소로 대체하세요
+          ws: true,
+          port: 8080,
         },
       },
       port: 3000, // 여기서 원하는 포트 번호로 변경합니다.
