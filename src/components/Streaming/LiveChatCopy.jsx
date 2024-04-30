@@ -1,3 +1,4 @@
+// 직접적으로 socketio 연결을 할 필요x /stream/sendChat/{streamId} 로 post 요청을 보내 백엔드 에서 소켓 연결 시도
 import { Client } from '@stomp/stompjs';
 import { useEffect, useState } from 'react';
 import SockJS from 'sockjs-client';
@@ -20,9 +21,11 @@ const LiveChat = ({ setCommunityActive }) => {
     setJoin(true);
 
     // SockJS와 Stomp를 사용하여 웹소켓 클라이언트를 생성합니다.
-    const sockJs = new SockJS('http://158.247.240.142:8080/chat');
     const stompClient = new Client({
-      webSocketFactory: () => sockJs,
+      webSocketFactory: () => new SockJS(`/api/chat`),
+      debug(str) {
+        console.log(str);
+      },
       // 연결이 성공했을 때 실행될 콜백
       onConnect: () => {
         console.log('sockJs 연결 성공!');
@@ -30,8 +33,14 @@ const LiveChat = ({ setCommunityActive }) => {
         // 서버로부터 메시지를 받도록 구독합니다.
         stompClient.subscribe(`/stream/${streamer.id}`, message => {
           // 보낸 메시지를 messages 상태에 추가합니다.
-          console.log(message);
           setMessages(prev => [...prev, JSON.parse(message.body)]); // {id:id, content:content}
+        });
+        stompClient.publish({
+          destination: 'body',
+          body: JSON.stringify({
+            userId: user,
+            content: message,
+          }),
         });
       },
       onStompError: err => {
@@ -42,6 +51,7 @@ const LiveChat = ({ setCommunityActive }) => {
     // 클라이언트 활성화
     stompClient.activate();
     setClient(stompClient);
+
     console.log('stomp client: ', stompClient);
 
     return () => {
@@ -54,9 +64,13 @@ const LiveChat = ({ setCommunityActive }) => {
   const sendMessage = async e => {
     try {
       e.preventDefault();
-      const destination = `/sendChat/${streamer.id}`;
-
-      await client.publish({
+      if (!client) {
+        console.error('STOMP 연결이 설정되지 않았습니다.');
+        return;
+      }
+      const destination = `/sendMessage/${streamer.id}`;
+      console.log(client.publish);
+      client.publish({
         destination,
         body: JSON.stringify({
           userId: user,
@@ -103,16 +117,15 @@ const LiveChat = ({ setCommunityActive }) => {
       </div>
     );
   };
-
   return (
     <div className="flex h-screen flex-col border-l-[.1px] border-[#494949] bg-[#0D0A18] font-thin text-white">
       <div className="flex-1 overflow-auto text-[14px]">
         {/* Header */}
         <div className="flex items-center justify-between border-b-[.1px] border-[#494949] px-3 py-4">
           <h3 className="font-bold">🔴 LIVE Chat</h3>
-          <div onClick={() => setCommunityActive(true)}>
-            <img src="/icon-community.png" />
-          </div>
+          <button type="button" onClick={() => setCommunityActive(true)}>
+            <img src="/icon-community.png" alt="iconCommunity" />
+          </button>
         </div>
 
         {/* Chat window */}
@@ -132,12 +145,13 @@ const LiveChat = ({ setCommunityActive }) => {
                 chatWarning()
               ) : (
                 <div className="flex">
-                  <div
+                  <button
+                    type="button"
                     onClick={() => setBanActive(true)}
                     className={`min-w-[70px] text-center ${messageColor()} font-bold`}
                   >
                     {user.name}:
-                  </div>
+                  </button>
                   <div className="m-auto w-full">
                     <div>
                       Hello world!Hello world!Hello world!Hello world!Hello
@@ -199,14 +213,17 @@ const LiveChat = ({ setCommunityActive }) => {
           {/* amount */}
           <div className="flex">
             <div className="mr-1">
-              <img src="/icon-spon.png" />
+              <img src="/icon-spon.png" alt="sponIcon" />
             </div>
             <div>100,000</div>
           </div>
 
           {/* spon button */}
           <div>
-            <button className="rounded-md bg-blue-800 px-2 py-1 text-sm ">
+            <button
+              type="button"
+              className="rounded-md bg-blue-800 px-2 py-1 text-sm "
+            >
               SPON
             </button>
           </div>

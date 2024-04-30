@@ -15,7 +15,7 @@ const SearchListPage = () => {
       const { data } = await axios.get(
         `/api/stream/search?keyword=${searchTerm}&page=${page}`,
       );
-
+      console.log(data);
       setSearchResults([...dummyData]);
     })();
     return () => {
@@ -34,7 +34,7 @@ const SearchListPage = () => {
             key={stream.streamId}
             title={stream.title}
             people={stream.people}
-            streamerId={stream.streamerId}
+            streamId={stream.streamId}
             userId={stream.streamer.userId}
             nickname={stream.streamer.nickname}
           />

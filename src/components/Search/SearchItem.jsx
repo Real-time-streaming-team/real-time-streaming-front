@@ -1,23 +1,23 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SearchItem = ({ title, people, streamerId, userId, nickname }) => {
+const SearchItem = ({ title, people, streamId, userId, nickname }) => {
   const navigate = useNavigate();
   return (
     <div
       role="button"
       className="mb-8 flex cursor-pointer hover:bg-slate-700"
-      onClick={() => navigate(`/streaming/${streamerId}`)}
+      onClick={() => navigate(`/streaming?streamId=${streamId}`)}
       onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') {
-          navigate(`/streaming/${streamerId}`);
+          navigate(`/streaming?streamId=${streamId}`);
         }
       }}
       tabIndex={0}
     >
       <img src="/streamImg.png" alt="썸네일" className="h-[195px] w-80" />
       <div className="ml-2 flex flex-col px-2 py-1">
-        <span className=" mb-1 text-start text-white">{title}</span>
+        <span className="mb-1 line-clamp-2 text-start text-white">{title}</span>
         <div className="flex items-center justify-start">
           <li className="h-5 w-10 list-none rounded-md bg-red-600 text-center text-sm text-white">
             <b>Live</b>

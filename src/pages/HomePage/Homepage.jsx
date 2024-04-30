@@ -25,7 +25,7 @@ const Homepage = () => {
               key={stream.streamId}
               title={stream.title}
               people={stream.people}
-              streamerId={stream.streamerId}
+              streamId={stream.streamId}
               userId={stream.streamer.userId}
               nickname={stream.streamer.nickname}
             />

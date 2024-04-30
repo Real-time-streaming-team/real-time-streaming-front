@@ -3,8 +3,8 @@ import StreamViewer from '../../components/Streaming/StreamViewer';
 // import LiveChat from '../../components/Streaming/LiveChat'
 import LiveChatCopy from '../../components/Streaming/LiveChatCopy';
 // import { useParams } from 'react-router-dom';
-import StreamerProfile from '../../components/Streaming/StreamerProfile';
 import CommunityTab from '../../components/Streaming/CommunityTab';
+import StreamerProfile from '../../components/Streaming/StreamerProfile';
 
 const StreamingPage = () => {
   const [communityActive, setCommunityActive] = useState(false);
@@ -12,7 +12,7 @@ const StreamingPage = () => {
 
   return (
     <div className="flex max-h-lvh">
-      <div className=" flex flex-col flex-1 min-w-[600px]">
+      <div className="flex min-w-[600px] flex-1 flex-col">
         {/* viewer */}
         <StreamViewer />
 
@@ -26,7 +26,7 @@ const StreamingPage = () => {
           : <LiveChat roomId={roomId} setCommunityActive={setCommunityActive}/>} */}
 
         {communityActive ? (
-          <CommunityTab setCommunityActive={setCommunityActive} />
+          <CommunityTab setCommunityActive={setCommunityActive} /> // 스트리머에 대한 정보
         ) : (
           <LiveChatCopy setCommunityActive={setCommunityActive} />
         )}

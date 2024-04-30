@@ -34,7 +34,7 @@ const Search = () => {
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         placeholder="검색어를 입력하세요"
-        className="w-[500px] bg-transparent px-4 py-2 text-white outline-none"
+        className="w-[500px] bg-transparent px-4 py-2 text-white outline-none hover:outline-gray-100"
       />
       <button
         type="button"
