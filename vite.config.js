@@ -29,9 +29,10 @@ export default ({ mode }) => {
           changeOrigin: true,
         },
         '/ws': {
-          target: env.VITE_CHAT_ADDRESS, // 원하는 서버 주소로 대체하세요
+          target: env.VITE_SERVER_ADDRESS, // 원하는 서버 주소로 대체하세요
+          rewrite: path => path.replace(/^\/ws/, ''),
           ws: true,
-          port: 8080,
+          port: 80,
         },
       },
       port: 3000, // 여기서 원하는 포트 번호로 변경합니다.

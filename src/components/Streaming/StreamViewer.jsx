@@ -11,7 +11,9 @@ const StreamViewer = () => {
     if (Hls.isSupported()) {
       const video = videoRef.current;
       hlsRef.current = new Hls();
-      hlsRef.current.loadSource(`/hls/1.m3u8`);
+      hlsRef.current.loadSource(
+        `${import.meta.env.VITE_STREAM_ADDRESS}/1.m3u8`,
+      );
       hlsRef.current.attachMedia(video);
     }
     return () => {
@@ -42,7 +44,7 @@ const StreamViewer = () => {
       <div className="h-full bg-black">
         <video className="m-auto size-full" ref={videoRef} autoPlay controls>
           <track
-            src="/hls/1.m3u8"
+            src={`${import.meta.env.VITE_STREAM_ADDRESS}/1.m3u8`}
             kind="captions"
             srcLang="ko"
             label="korea_captions"

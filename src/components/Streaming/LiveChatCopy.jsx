@@ -22,7 +22,7 @@ const LiveChat = ({ setCommunityActive }) => {
 
     // SockJS와 Stomp를 사용하여 웹소켓 클라이언트를 생성합니다.
     const stompClient = new Client({
-      webSocketFactory: () => new SockJS(`/api/chat`),
+      webSocketFactory: () => new SockJS(`/ws/chat`),
       debug(str) {
         console.log(str);
       },
@@ -31,9 +31,10 @@ const LiveChat = ({ setCommunityActive }) => {
         console.log('sockJs 연결 성공!');
 
         // 서버로부터 메시지를 받도록 구독합니다.
-        stompClient.subscribe(`/stream/${streamer.id}`, message => {
+        stompClient.subscribe(`/stream/1`, message => {
           // 보낸 메시지를 messages 상태에 추가합니다.
           setMessages(prev => [...prev, JSON.parse(message.body)]); // {id:id, content:content}
+          console.log(message);
         });
         stompClient.publish({
           destination: 'body',
@@ -52,8 +53,6 @@ const LiveChat = ({ setCommunityActive }) => {
     stompClient.activate();
     setClient(stompClient);
 
-    console.log('stomp client: ', stompClient);
-
     return () => {
       // 컴포넌트가 언마운트 될 때 연결을 끊습니다.
       stompClient.deactivate();
@@ -68,8 +67,7 @@ const LiveChat = ({ setCommunityActive }) => {
         console.error('STOMP 연결이 설정되지 않았습니다.');
         return;
       }
-      const destination = `/sendMessage/${streamer.id}`;
-      console.log(client.publish);
+      const destination = `/sendMessage/1`;
       client.publish({
         destination,
         body: JSON.stringify({
@@ -77,7 +75,6 @@ const LiveChat = ({ setCommunityActive }) => {
           content: message,
         }),
       });
-      console.log('send 성공');
       // + token추가
       setMessage('');
     } catch (err) {
@@ -99,7 +96,7 @@ const LiveChat = ({ setCommunityActive }) => {
 
   const messageColor = () => {
     if (message.id === streamer.id) return 'text-[#FF4AF8]'; // streamer
-    if (message.id === user.id) return 'text-[#4ABEFF]'; // user
+    return 'text-[#4ABEFF]'; // user
   };
 
   const chatWarning = () => {
@@ -121,7 +118,7 @@ const LiveChat = ({ setCommunityActive }) => {
     <div className="flex h-screen flex-col border-l-[.1px] border-[#494949] bg-[#0D0A18] font-thin text-white">
       <div className="flex-1 overflow-auto text-[14px]">
         {/* Header */}
-        <div className="flex items-center justify-between border-b-[.1px] border-[#494949] px-3 py-4">
+        <div className="flex items-center justify-between border-b-[.1px] border-[#494949] px-3 pb-3">
           <h3 className="font-bold">🔴 LIVE Chat</h3>
           <button type="button" onClick={() => setCommunityActive(true)}>
             <img src="/icon-community.png" alt="iconCommunity" />
@@ -153,10 +150,7 @@ const LiveChat = ({ setCommunityActive }) => {
                     {user.name}:
                   </button>
                   <div className="m-auto w-full">
-                    <div>
-                      Hello world!Hello world!Hello world!Hello world!Hello
-                      world!
-                    </div>
+                    <div>{messages}</div>
                   </div>
                 </div>
               )}
@@ -170,11 +164,13 @@ const LiveChat = ({ setCommunityActive }) => {
               <div key={idx} className="mb-2 flex w-full break-words font-thin">
                 <div>{formatTime()}</div>
                 <div className="flex">
-                  <div
-                    className={`min-w-[70px] text-center ${messageColor()} mr-1 font-bold`}
+                  <button
+                    type="button"
+                    onClick={() => setBanActive(true)}
+                    className={`min-w-[70px] text-center ${messageColor()} font-bold`}
                   >
                     {user.name}:
-                  </div>
+                  </button>
                   <div className="m-auto w-full">
                     <div>{message.content}</div>
                   </div>
@@ -186,8 +182,8 @@ const LiveChat = ({ setCommunityActive }) => {
       </div>
 
       {/* chat field */}
-      <div className="flex h-[110px] w-full flex-col items-center justify-center border-t-[.1px] border-[#494949] px-4">
-        <form onSubmit={sendMessage} className="w-full">
+      <div className="flex h-[195px] w-full flex-col items-center justify-between border-t-[.1px] border-[#494949] px-4 py-5">
+        <form onSubmit={sendMessage} className="w-full pt-0">
           <div className="relative">
             {/* message input */}
             <input
