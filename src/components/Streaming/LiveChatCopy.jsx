@@ -6,7 +6,7 @@ import BanActive from '../modal/BanActive';
 import dummyData from './dummyData.json';
 
 const LiveChat = ({ setCommunityActive }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(0);
   const [streamer, setStreamer] = useState({});
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
@@ -31,15 +31,15 @@ const LiveChat = ({ setCommunityActive }) => {
         console.log('sockJs 연결 성공!');
 
         // 서버로부터 메시지를 받도록 구독합니다.
-        stompClient.subscribe(`/stream/1`, message => {
+        stompClient.subscribe(`/stream/1`, msg => {
           // 보낸 메시지를 messages 상태에 추가합니다.
-          setMessages(prev => [...prev, JSON.parse(message.body)]); // {id:id, content:content}
-          console.log(message);
+          const { userId, content } = JSON.parse(msg.body);
+          setMessages(prev => [...prev, userId, content]); // {id:id, content:content}
         });
         stompClient.publish({
           destination: 'body',
           body: JSON.stringify({
-            userId: user,
+            userId: '1',
             content: message,
           }),
         });
@@ -55,6 +55,7 @@ const LiveChat = ({ setCommunityActive }) => {
 
     return () => {
       // 컴포넌트가 언마운트 될 때 연결을 끊습니다.
+      // console.log(messages);
       stompClient.deactivate();
     };
   }, []);
@@ -67,11 +68,15 @@ const LiveChat = ({ setCommunityActive }) => {
         console.error('STOMP 연결이 설정되지 않았습니다.');
         return;
       }
-      const destination = `/sendMessage/1`;
+      const destination = `/sendChat/1`;
+      // axios.post('/api/stream/sendChat/1', {
+      //   userId: 1,
+      //   content: 'dsds',
+      // });
       client.publish({
         destination,
         body: JSON.stringify({
-          userId: user,
+          userId: '1',
           content: message,
         }),
       });
@@ -160,7 +165,7 @@ const LiveChat = ({ setCommunityActive }) => {
             {/* BanActive modal */}
             {/* <BanActive /> */}
             {/* chat message */}
-            {messages.map((message, idx) => (
+            {messages.map((data, idx) => (
               <div key={idx} className="mb-2 flex w-full break-words font-thin">
                 <div>{formatTime()}</div>
                 <div className="flex">
@@ -172,7 +177,7 @@ const LiveChat = ({ setCommunityActive }) => {
                     {user.name}:
                   </button>
                   <div className="m-auto w-full">
-                    <div>{message.content}</div>
+                    <div>{data}</div>
                   </div>
                 </div>
               </div>
