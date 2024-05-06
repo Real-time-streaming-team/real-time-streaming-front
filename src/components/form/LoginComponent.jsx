@@ -6,9 +6,9 @@ export const Input = ({type, name ,placeholder,onChange, ...rest} ) => {
     )
 }
 
-export const Button = ({children, onClick}) => {
+export const Button = ({children, onClick, type, disabled}) => {
     return(
-        <button className="px-5 py-3 text-base font-semibold rounded mt-9 bg-gradient-to-br from-primary-color to-secondary-color h-14 focus:outline-none hover:opacity-90" onClick={onClick}>
+        <button disabled={disabled} type={type} className="px-5 py-3 text-base font-semibold rounded mt-9 bg-gradient-to-br from-primary-color to-secondary-color h-14 focus:outline-none hover:opacity-90" onClick={onClick}>
           {children}
         </button>
     );

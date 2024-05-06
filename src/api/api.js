@@ -9,10 +9,12 @@ export const Get = async (url, token) => {
 }
 
 export const Post = async (url, body, token) => {
-    const header = token ? {Authorization : `Bearer ${token}`} : {}
+    //const header = token ? {Authorization : `Bearer ${token}` ,"Content-Type": "application/json"} : {}
     const response = await fetch(url, {
         method : 'POST',
-        headers : header,
+        headers : {
+            "Content-Type" : "application/json"
+        },
         body : JSON.stringify(body)
     });
     if(!response.ok) throw new Error(response.status)
