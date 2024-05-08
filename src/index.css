@@ -5,3 +5,10 @@
 html {
   color: white;
 }
+
+* {
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
+  position: relative;
+}
