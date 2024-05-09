@@ -85,7 +85,7 @@ const SignUpForm = () => {
     return (
       <>
         <form onSubmit={handleSignUp} className="flex flex-col w-full mt-9">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 mb-9">
             <Input name="email" onChange={onChangeEmail} placeholder="E-mail Address" type="email" ></Input>
             {email.length > 0 && <span className={`${isEmail ? 'text-primary-color' : 'text-red-400'} text-xs text-left`}>{emailAlertMessage}</span>}
             <Input name="password" placeholder="Password" type="password" onChange={onChangePwd}></Input>
@@ -94,7 +94,7 @@ const SignUpForm = () => {
             {passwordConfirm.length > 0 && <span className={`${isPasswordConfirm ? 'text-primary-color' : 'text-red-400'} text-left text-xs`}>{pwdConfirmAlertMessage}</span>}
             <Input name="nickname" placeholder="Nickname" onChange={(e) => setNickName(e.target.value)}></Input>
           </div>
-          <Button type='submit' disabled={!(isEmail && nickName && isPassword && isPasswordConfirm)} onClick={handleSignUp}>SIGN UP</Button>
+          <Button item='largeButton' type='submit' disabled={!(isEmail && nickName && isPassword && isPasswordConfirm)} onClick={handleSignUp}>SIGN UP</Button>
         </form>
       </>
     );

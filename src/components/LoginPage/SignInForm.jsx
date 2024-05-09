@@ -2,6 +2,7 @@ import { useCookies } from "react-cookie";
 import { useState, useCallback } from "react";
 import { Post } from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../form/LoginComponent";
 const SignInForm = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -63,9 +64,9 @@ const SignInForm = () => {
           <div className="w-full p-px h-11 bg-gradient-to-r from-primary-color to-secondary-color ">
             <input type="password" placeholder="Password" className="w-full h-full p-3 bg-black placeholder:text-white focus:outline-none focus:border-primary-color " onChange={onChangePwd}/>
           </div>
-          <button className="px-5 py-3 text-base font-semibold rounded bg-gradient-to-br from-primary-color to-secondary-color h-14 focus:outline-none hover:opacity-90" onClick={handleSignIn}>
+          <Button item='largeButton' onClick={handleSignIn}>
             SIGN IN
-          </button>
+          </Button>
         </form>
         <div className="flex justify-between ">
           <button className="mt-3 text-xs text-primary-color focus:outline-none hover:opacity-90">

@@ -6,9 +6,15 @@ export const Input = ({type, name ,placeholder,onChange, ...rest} ) => {
     )
 }
 
-export const Button = ({children, onClick, type, disabled}) => {
+export const Button = ({children, onClick, type, disabled,item}) => {
+    const buttonVarients =  {
+        largeButton : 'px-5 py-3 text-base  font-semibold rounded bg-gradient-to-br from-primary-color to-secondary-color h-14 focus:outline-none hover:opacity-90',
+        smallButton : 'px-5 py-3 text-base font-semibold rounded bg-gradient-to-br from-primary-color to-secondary-color h-11 focus:outline-none hover:opacity-90'
+    }
+
+
     return(
-        <button disabled={disabled} type={type} className="px-5 py-3 text-base font-semibold rounded mt-9 bg-gradient-to-br from-primary-color to-secondary-color h-14 focus:outline-none hover:opacity-90" onClick={onClick}>
+        <button disabled={disabled} type={type} className={`${buttonVarients[item]}`} onClick={onClick}>
           {children}
         </button>
     );
